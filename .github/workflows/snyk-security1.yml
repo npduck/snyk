@@ -72,6 +72,15 @@ jobs:
       - name: Snyk Container monitor
         run: snyk container monitor your/image-to-test --file=Dockerfile
 
+
+
+  code-scan:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    runs-on: ubuntu-latest
+    steps:
         # Push the Snyk Code results into GitHub Code Scanning tab
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v3
@@ -94,6 +103,14 @@ jobs:
           isTest: # optional, default is false
 
 
+
+  install-python:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    runs-on: ubuntu-latest
+    steps:
       - name: Install Python requirements
         # You may pin to the exact commit or the version.
         # uses: aabadie/action-install-python-requirements@bd1357189566c9678a47677d561b4b8e113d9787
